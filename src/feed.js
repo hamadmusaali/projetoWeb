@@ -24,12 +24,15 @@ function Buscar(){
 function Feed() {
 
     return (
-        <div className="container">
+        <div className="feed">
             <h1>Cervejarias</h1>
+            
             <input type="text" id="busca"></input>
             <button onClick={Buscar}>Buscar</button>
-            <ul>
-            </ul>
+            <div className="wrap">
+                <ul>
+                </ul>
+            </div>
         </div>
     );
 }
