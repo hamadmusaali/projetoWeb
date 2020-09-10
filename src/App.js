@@ -1,14 +1,7 @@
 import React from 'react';
-import './App.css';
-import Insta from './insta';
-import LoginCadastro from './LoginCadastro'
 
-function App() {
-  return (
-    <div className="App">
-      <Insta />
-    </div>
-  );
-}
+import Routes from './routes';
+
+const App = () => <Routes />;
 
 export default App;
