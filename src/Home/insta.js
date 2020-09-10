@@ -1,10 +1,10 @@
 import React from 'react';
 import './style.css';
 import $ from "jquery";
-import escrita from './imagens/escrita.png';
-import apple from './imagens/applestore.png';
-import facebook from './imagens/facebook.png';
-import android from './imagens/googleplay.png';
+import escrita from '../imagens/escrita.png';
+import apple from '../imagens/applestore.png';
+import facebook from '../imagens/facebook.png';
+import android from '../imagens/googleplay.png';
 
 import { Link } from 'react-router-dom';
 

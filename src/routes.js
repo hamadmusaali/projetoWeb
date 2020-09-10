@@ -3,8 +3,8 @@ import { autenticado } from './auth';
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import Insta from './insta';
-import Feed from './feed';
+import Insta from './Home/insta';
+import Feed from './Feed/feed';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props =>
