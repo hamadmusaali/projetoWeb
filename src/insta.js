@@ -86,61 +86,36 @@ function controlaLog() {
 
 function App() {
     return (
-    <div>   
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width = device-width, initial-scale=1.0" />
-        <title>Página de login</title>
-    
-    
-        <div id="wrapper">
-            <div id="insta" className="container">
-                <div className="celulares"></div>
+        <div>
+            <meta charSet="UTF-8" />
+            <meta name="viewport" content="width = device-width, initial-scale=1.0" />
+            <title>Página de login</title>
 
-                <div className="top">
-                    <form action="javascript:void(0);">
-                        <div className="logo">
-                            <img src={escrita} alt="instagram" />
-                        </div>
-                        <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" />
-                        <input id="senha" type="password" className="input" placeholder="Senha" />
-                        <Link to="/feed" className="botao" onClick={Login}>Entrar</Link>
-                        <span className="separar">OU</span>
-                        <a href="#" className="facebook">
-                            <div className="textoFB">
-                                <p><img src={facebook} />
-                                Entrar com o Facebook
-                                </p>
-                            </div>
-                        </a>
-                        <a href="#" className="esqueceuSenha">Esqueceu a senha?</a>
-                    </form>
-                    <div className="cadastrar">
-                        Não tem uma conta? <a onClick={controlaCad}>Cadastre-se</a>
-                    </div>
-                    <div className="obtenhaApp">
-                        <span>Obtenha o aplicativo.</span>
-                        <div className="download">
-                            <img src={apple} alt="apple" />
-                            <img src={android} alt="android" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="cad">
-                <div id="cad" className="container">
+
+            <div id="wrapper">
+                <div id="insta" className="container">
+                    <div className="celulares"></div>
+
                     <div className="top">
-                        
                         <form action="javascript:void(0);">
                             <div className="logo">
                                 <img src={escrita} alt="instagram" />
                             </div>
-                            <input id="nome_cad" className="input" type="text" placeholder="email"></input>
-                            <input id="senha_cad" className="input" type="password" placeholder="senha"></input>
-                            <input id="senha1_cad" className="input" type="password" placeholder="confirma senha"></input>
-                            <button id="btn" className="botao" onClick={Cadastrar}>Cadastrar</button>
+                            <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" />
+                            <input id="senha" type="password" className="input" placeholder="Senha" />
+                            <Link to="/feed" className="botao" onClick={Login}>Entrar</Link>
+                            <span className="separar">OU</span>
+                            <Link to="/" className="facebook">
+                                <div className="textoFB">
+                                    <p><img src={facebook} alt="facebook"/>
+                                Entrar com o Facebook
+                                </p>
+                                </div>
+                            </Link>
+                            <Link to="/" className="esqueceuSenha">Esqueceu a senha?</Link>
                         </form>
                         <div className="cadastrar">
-                            Já tem uma conta? <a onClick={controlaLog}>Conecte-se</a>
+                            Não tem uma conta? <Link to="" onClick={controlaCad}>Cadastre-se</Link>
                         </div>
                         <div className="obtenhaApp">
                             <span>Obtenha o aplicativo.</span>
@@ -151,53 +126,78 @@ function App() {
                         </div>
                     </div>
                 </div>
+                <div className="cad">
+                    <div id="cad" className="container">
+                        <div className="top">
+
+                            <form action="javascript:void(0);">
+                                <div className="logo">
+                                    <img src={escrita} alt="instagram" />
+                                </div>
+                                <input id="nome_cad" className="input" type="text" placeholder="email"></input>
+                                <input id="senha_cad" className="input" type="password" placeholder="senha"></input>
+                                <input id="senha1_cad" className="input" type="password" placeholder="confirma senha"></input>
+                                <button id="btn" className="botao" onClick={Cadastrar}>Cadastrar</button>
+                            </form>
+                            <div className="cadastrar">
+                                Já tem uma conta? <Link to="/" onClick={controlaLog}>Conecte-se</Link>
+                            </div>
+                            <div className="obtenhaApp">
+                                <span>Obtenha o aplicativo.</span>
+                                <div className="download">
+                                    <img src={apple} alt="apple" />
+                                    <img src={android} alt="android" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <div className="container">
+                        <nav className="rodape">
+                            <ul>
+                                <li>
+                                    <Link to="/">SOBRE</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">AJUDA</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">IMPRENSA</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">API</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">CARREIRAS</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">PRIVACIDADE</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">TERMOS</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">LOCALIZAÇÕES</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">CONTAS MAIS RELEVANTES</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">HASHTAGS</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">IDIOMA</Link>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div className="copyright">
+                        &copy; 2020 INSTAGRAM DO FACEBOOK
+                </div>
+                </footer>
             </div>
-            <footer>
-                <div className="container">
-                    <nav className="rodape">
-                        <ul>
-                            <li>
-                                <a href="#">SOBRE</a>
-                            </li>
-                            <li>
-                                <a href="#">AJUDA</a>
-                            </li>
-                            <li>
-                                <a href="#">IMPRENSA</a>
-                            </li>
-                            <li>
-                                <a href="#">API</a>
-                            </li>
-                            <li>
-                                <a href="#">CARREIRAS</a>
-                            </li>
-                            <li>
-                                <a href="#">PRIVACIDADE</a>
-                            </li>
-                            <li>
-                                <a href="#">TERMOS</a>
-                            </li>
-                            <li>
-                                <a href="#">LOCALIZAÇÕES</a>
-                            </li>
-                            <li>
-                                <a href="#">CONTAS MAIS RELEVANTES</a>
-                            </li>
-                            <li>
-                                <a href="#">HASHTAGS</a>
-                            </li>
-                            <li>
-                                <a href="#">IDIOMA</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div className="copyright">
-                    &copy; 2020 INSTAGRAM DO FACEBOOK
-                </div>
-            </footer>
         </div>
-    </div>
     );
 }
 export default App;
