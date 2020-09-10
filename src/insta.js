@@ -103,8 +103,7 @@ function App() {
                         </div>
                         <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" />
                         <input id="senha" type="password" className="input" placeholder="Senha" />
-                        <button className="botao" type="submit" onClick={Login}>Entrar</button>
-                        <Link to="/feed" onClick={Login}>Entrar</Link>
+                        <Link to="/feed" className="botao" onClick={Login}>Entrar</Link>
                         <span className="separar">OU</span>
                         <a href="#" className="facebook">
                             <div className="textoFB">
