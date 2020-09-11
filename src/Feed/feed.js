@@ -21,6 +21,11 @@ function Buscar(){
         });
 }
 
+function LogOut(){
+    localStorage.setItem("acesso", false);
+    window.location.href = "/";
+}
+
 function Feed() {
 
     return (
@@ -28,7 +33,8 @@ function Feed() {
             <h1>Cervejarias</h1>
             
             <input type="text" id="busca"></input>
-            <button onClick={Buscar}>Buscar</button>
+            <button onClick={Buscar} className="button1">Buscar</button>
+            <button onClick={LogOut} className="button2">Sair</button>
             <div className="wrap">
                 <ul>
                 </ul>

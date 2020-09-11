@@ -11,13 +11,14 @@
 	margin-left: 20%;
 }
 
-
-
 .feed li {
     display: block;
     margin: 10px;
     border: 1px solid #000;
+    font-weight: bolder;
     border-radius: 0.5rem;
+    text-align: center;
+    background-image:  url("../imagens/cerveja1.png");
 }
 
 .feed input{
@@ -26,8 +27,15 @@
     border-radius: 0.2rem;
 }
 
-.feed button{
+.feed .button1{
     margin-left: 15px;
+    font: bold 12px/24px arial, helvetica, sans-aerif;	
+    text-align:center;
+    height:24px;	
+}
+
+.feed .button2{
+    margin-left: 77%;
     font: bold 12px/24px arial, helvetica, sans-aerif;	
     text-align:center;
     height:24px;	
@@ -40,5 +48,6 @@
 	max-width: 100%;
 	padding-bottom: 30px;
 	padding-top: 40px;
-	text-align: justify;
+    text-align: justify;
+    background-image: url("../imagens/cerveja2.png");
 }

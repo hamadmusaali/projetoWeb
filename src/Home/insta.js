@@ -53,8 +53,9 @@ function Login() {
             console.log(response);
 
             if (response.token === "QpwL5tke4Pnpja7X4") {
-                alert("Login Valido");
+                console.log("Login Valido");
                 localStorage.setItem("acesso", true);
+                window.location.href = "/feed";
             } else {
                 alert("Login Inválido");
                 localStorage.setItem("acesso", false);
@@ -97,7 +98,7 @@ function App() {
                             </div>
                             <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" />
                             <input id="senha" type="password" className="input" placeholder="Senha" />
-                            <Link to="/feed" className="botao" onClick={Login}>Entrar</Link>
+                            <Link to="/" className="botao" onClick={Login}>Entrar</Link>
                             <span className="separar">OU</span>
                             <Link to="/" className="facebook">
                                 <div className="textoFB">
