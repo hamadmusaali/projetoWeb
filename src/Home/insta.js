@@ -30,14 +30,6 @@ function Cadastrar() {
                 console.log(response);
             }
         });
-
-        var data = JSON.parse(localStorage.getItem("dadosCli"));
-        if (data == null) {
-            localStorage.setItem("dadosCli", "[]");
-            data = [];
-        }
-        data.push(auxRegistro);
-        localStorage.setItem("dadosCli", JSON.stringify(data));
     }
     else {
         alert("Senhas não correspondem");
@@ -62,8 +54,10 @@ function Login() {
 
             if (response.token === "QpwL5tke4Pnpja7X4") {
                 alert("Login Valido");
+                localStorage.setItem("acesso", true);
             } else {
                 alert("Login Inválido");
+                localStorage.setItem("acesso", false);
             }
         }
     });
@@ -127,7 +121,7 @@ function App() {
                     </div>
                 </div>
                 <div className="cad">
-                    <div id="cad" className="container">
+                    <div id="cad" className="direita">
                         <div className="top">
 
                             <form action="javascript:void(0);">
@@ -137,7 +131,7 @@ function App() {
                                 <input id="nome_cad" className="input" type="text" placeholder="email"></input>
                                 <input id="senha_cad" className="input" type="password" placeholder="senha"></input>
                                 <input id="senha1_cad" className="input" type="password" placeholder="confirma senha"></input>
-                                <button id="btn" className="botao" onClick={Cadastrar}>Cadastrar</button>
+                                <Link to="/" id="btn" className="botao" onClick={Cadastrar}>Cadastrar</Link>
                             </form>
                             <div className="cadastrar">
                                 Já tem uma conta? <Link to="/" onClick={controlaLog}>Conecte-se</Link>
