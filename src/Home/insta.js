@@ -8,36 +8,6 @@ import android from '../imagens/googleplay.png';
 
 import { Link } from 'react-router-dom';
 
-function Cadastrar() {
-    var nome = document.getElementById('nome_cad'),
-        senha = document.getElementById('senha_cad'),
-        senha1 = document.getElementById('senha1_cad'),
-        insta = document.getElementById("insta"),
-        cad = document.getElementById("cad");
-
-    if (senha.value === senha1.value) {
-        var auxRegistro = {
-            email: nome.value,
-            password: senha.value
-        }
-
-
-        $.ajax({
-            url: "https://reqres.in/api/register",
-            type: "POST",
-            data: auxRegistro,
-            success: function (response) {
-                console.log(response);
-            }
-        });
-    }
-    else {
-        alert("Senhas não correspondem");
-    }
-    insta.style.display = "block";
-    cad.style.display = "none";
-}
-
 function Login() {
     var login = document.getElementById('login'),
         senha = document.getElementById('senha');
@@ -63,21 +33,6 @@ function Login() {
         }
     });
 }
-
-function controlaCad() {
-    var cad = document.getElementById("cad"),
-        insta = document.getElementById("insta");
-    cad.style.display = "block";
-    insta.style.display = "none";
-}
-
-function controlaLog() {
-    var cad = document.getElementById("cad"),
-        insta = document.getElementById("insta");
-    cad.style.display = "none";
-    insta.style.display = "block";
-}
-
 
 function App() {
     return (
@@ -110,39 +65,13 @@ function App() {
                             <Link to="/" className="esqueceuSenha">Esqueceu a senha?</Link>
                         </form>
                         <div className="cadastrar">
-                            Não tem uma conta? <Link to="" onClick={controlaCad}>Cadastre-se</Link>
+                            Não tem uma conta? <Link to="/register" >Cadastre-se</Link>
                         </div>
                         <div className="obtenhaApp">
                             <span>Obtenha o aplicativo.</span>
                             <div className="download">
                                 <img src={apple} alt="apple" />
                                 <img src={android} alt="android" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="cad">
-                    <div id="cad" className="direita">
-                        <div className="top">
-
-                            <form action="javascript:void(0);">
-                                <div className="logo">
-                                    <img src={escrita} alt="instagram" />
-                                </div>
-                                <input id="nome_cad" className="input" type="text" placeholder="email"></input>
-                                <input id="senha_cad" className="input" type="password" placeholder="senha"></input>
-                                <input id="senha1_cad" className="input" type="password" placeholder="confirma senha"></input>
-                                <Link to="/" id="btn" className="botao" onClick={Cadastrar}>Cadastrar</Link>
-                            </form>
-                            <div className="cadastrar">
-                                Já tem uma conta? <Link to="/" onClick={controlaLog}>Conecte-se</Link>
-                            </div>
-                            <div className="obtenhaApp">
-                                <span>Obtenha o aplicativo.</span>
-                                <div className="download">
-                                    <img src={apple} alt="apple" />
-                                    <img src={android} alt="android" />
-                                </div>
                             </div>
                         </div>
                     </div>

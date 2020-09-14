@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Insta from './Home/insta';
 import Feed from './Feed/feed';
+import Register from './Register/register';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props =>
@@ -21,6 +22,7 @@ const Routes = () => (
         <Switch>
             <Route exact path="/" component={Insta} />
             <PrivateRoute path="/feed" component={Feed} />
+            <Route path="/register" component={Register} />
         </Switch>
     </BrowserRouter>
 );
