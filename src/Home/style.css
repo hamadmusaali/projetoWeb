@@ -59,7 +59,6 @@ body {
     width: 100%;
     max-width: 20rem;
     margin-top: 2.8rem;
-    margin: 0px;
 }
 
 .top form {
@@ -83,10 +82,11 @@ body {
     border-radius: .05rem;
 }
 
-.direita {
-    position: absolute;
-    left: 800px;
-    top: 100px;
+#direita {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
 }
 
 
@@ -214,8 +214,6 @@ footer .container {
 
 .copyright {
     color: #999999;
-    padding-top: 0.2rem;
-    padding-left: 8.7rem;
 }
 
 

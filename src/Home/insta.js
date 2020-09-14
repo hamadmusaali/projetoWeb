@@ -12,29 +12,42 @@ function Login() {
     var login = document.getElementById('login'),
         senha = document.getElementById('senha');
 
-    $.ajax({
-        url: "https://reqres.in/api/login",
-        type: "POST",
-        data: {
-            email: login.value,
-            password: senha.value
-        },
-        success: function (response) {
-            console.log(response);
+    if (login.value != '' && senha.value != '') {
 
-            if (response.token === "QpwL5tke4Pnpja7X4") {
-                console.log("Login Valido");
-                localStorage.setItem("acesso", true);
-                window.location.href = "/feed";
-            } else {
-                alert("Login Inválido");
-                localStorage.setItem("acesso", false);
-            }
+        if (login.value.length >= 3 && senha.value.length >= 3 ) {
+
+            $.ajax({
+                url: "https://reqres.in/api/login",
+                type: "POST",
+                data: {
+                    email: login.value,
+                    password: senha.value
+                },
+                success: function (response) {
+                    console.log(response);
+        
+                    if (response.token === "QpwL5tke4Pnpja7X4") {
+                        console.log("Login Valido");
+                        localStorage.setItem("acesso", true);
+                        window.location.href = "/feed";
+                    } else {
+                        alert("Login Inválido");
+                        localStorage.setItem("acesso", false);
+                    }
+                }
+            });
         }
-    });
+        else
+            alert('Login ou Senha com menos de 3 caracteres!!')
+        
+    }
+    else
+        alert('Login ou Senha vazia!!');
+    
 }
 
 function App() {
+
     return (
         <div>
             <meta charSet="UTF-8" />
@@ -47,17 +60,17 @@ function App() {
                     <div className="celulares"></div>
 
                     <div className="top">
-                        <form action="javascript:void(0);">
+                        <form id="form" action="javascript:void(0);">
                             <div className="logo">
                                 <img src={escrita} alt="instagram" />
                             </div>
-                            <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" />
-                            <input id="senha" type="password" className="input" placeholder="Senha" />
+                            <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" required/>
+                            <input id="senha" type="password" className="input" placeholder="Senha" required/>
                             <Link to="/" className="botao" onClick={Login}>Entrar</Link>
                             <span className="separar">OU</span>
                             <Link to="/" className="facebook">
                                 <div className="textoFB">
-                                    <p><img src={facebook} alt="facebook"/>
+                                    <p><img src={facebook} alt="facebook" />
                                 Entrar com o Facebook
                                 </p>
                                 </div>
@@ -113,12 +126,13 @@ function App() {
                                 <li>
                                     <Link to="/">IDIOMA</Link>
                                 </li>
+                                <li className="copyright">
+                                    &copy; 2020 INSTAGRAM DO FACEBOOK
+                                </li>
                             </ul>
                         </nav>
                     </div>
-                    <div className="copyright">
-                        &copy; 2020 INSTAGRAM DO FACEBOOK
-                </div>
+
                 </footer>
             </div>
         </div>
