@@ -10,7 +10,10 @@ import { Link } from 'react-router-dom';
 function Cadastrar() {
     var nome = document.getElementById('nome_cad'),
         senha = document.getElementById('senha_cad'),
-        senha1 = document.getElementById('senha1_cad');
+        senha1 = document.getElementById('senha1_cad'),
+        msgSenha = document.getElementById('msgSenha'),
+        msgCaracteres = document.getElementById('msgCaracteres'),
+        msgSenhasIguais = document.getElementById('msgSenhasIguais');
 
     if (nome.value != '' && senha.value != '' && senha1.value != '') {
 
@@ -29,18 +32,27 @@ function Cadastrar() {
                     data: auxRegistro,
                     success: function (response) {
                         console.log(response);
+                        window.location.href = "/"
                     }
                 });
             }
             else {
-                alert("Senhas não correspondem");
+                msgSenha.style.display = "none";
+                msgCaracteres.style.display = "none";
+                msgSenhasIguais.style.display = "block";
             }
         }
-        else
-            alert('Login ou Senha com menos de 3 caracteres!!')
+        else {
+            msgSenha.style.display = "none";
+            msgCaracteres.style.display = "block";
+            msgSenhasIguais.style.display = "none";
+        }
     }
-    else
-        alert('Login ou Senha vazia!!');
+    else {
+        msgSenha.style.display = "block";
+        msgCaracteres.style.display = "none";
+        msgSenhasIguais.style.display = "none";
+    }
 
 }
 
@@ -58,7 +70,16 @@ function Reg() {
                         <input id="nome_cad" className="input" type="text" placeholder="Email" required></input>
                         <input id="senha_cad" className="input" type="password" placeholder="Senha" required></input>
                         <input id="senha1_cad" className="input" type="password" placeholder="Confirma senha" required></input>
-                        <Link to="/" id="btn" className="botao" onClick={Cadastrar}>Cadastrar</Link>
+                        <button id="btn" className="botao" onClick={Cadastrar}>Cadastrar</button>
+                        <div id="msgCaracteres">
+                            <p className="valid">Login ou Senha com menos de 3 caracteres!!</p>
+                        </div>
+                        <div id="msgSenha">
+                            <p className="valid">Login ou Senha vazia!!</p>
+                        </div>
+                        <div id="msgSenhasIguais">
+                            <p className="valid">As senhas não são iguais!!</p>
+                        </div>
                     </form>
                     <div className="cadastrar">
                         Já tem uma conta? <Link to="/" >Conecte-se</Link>

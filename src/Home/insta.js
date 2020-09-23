@@ -10,11 +10,13 @@ import { Link } from 'react-router-dom';
 
 function Login() {
     var login = document.getElementById('login'),
-        senha = document.getElementById('senha');
+        senha = document.getElementById('senha'),
+        msgSenha = document.getElementById('msgSenha'),
+        msgCaracteres = document.getElementById('msgCaracteres');
 
     if (login.value != '' && senha.value != '') {
 
-        if (login.value.length >= 3 && senha.value.length >= 3 ) {
+        if (login.value.length >= 3 && senha.value.length >= 3) {
 
             $.ajax({
                 url: "https://reqres.in/api/login",
@@ -25,7 +27,7 @@ function Login() {
                 },
                 success: function (response) {
                     console.log(response);
-        
+
                     if (response.token === "QpwL5tke4Pnpja7X4") {
                         console.log("Login Valido");
                         localStorage.setItem("acesso", true);
@@ -37,21 +39,24 @@ function Login() {
                 }
             });
         }
-        else
-            alert('Login ou Senha com menos de 3 caracteres!!')
-        
+        else {
+            msgSenha.style.display = "none";
+            msgCaracteres.style.display = "block";
+        }
+
+
     }
-    else
-        alert('Login ou Senha vazia!!');
-    
+    else {
+        msgSenha.style.display = "block";
+        msgCaracteres.style.display = "none";
+    }
+
 }
 
 function App() {
 
     return (
         <div>
-            <meta charSet="UTF-8" />
-            <meta name="viewport" content="width = device-width, initial-scale=1.0" />
             <title>Página de login</title>
 
 
@@ -64,17 +69,23 @@ function App() {
                             <div className="logo">
                                 <img src={escrita} alt="instagram" />
                             </div>
-                            <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" required/>
-                            <input id="senha" type="password" className="input" placeholder="Senha" required/>
-                            <Link to="/" className="botao" onClick={Login}>Entrar</Link>
+                            <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" required />
+                            <input id="senha" type="password" className="input" placeholder="Senha" required />
+                            <button className="botao" onClick={Login}>Entrar</button>
                             <span className="separar">OU</span>
                             <Link to="/" className="facebook">
                                 <div className="textoFB">
                                     <p><img src={facebook} alt="facebook" />
-                                Entrar com o Facebook
-                                </p>
+                                    Entrar com o Facebook
+                                    </p>
                                 </div>
                             </Link>
+                            <div id="msgCaracteres">
+                                <p className="valid">Login ou Senha com menos de 3 caracteres!!</p>
+                            </div>
+                            <div id="msgSenha">
+                                <p className="valid">Login ou Senha vazia!!</p>
+                            </div>
                             <Link to="/" className="esqueceuSenha">Esqueceu a senha?</Link>
                         </form>
                         <div className="cadastrar">

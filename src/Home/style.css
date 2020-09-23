@@ -86,7 +86,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 150px;
 }
 
 
@@ -225,7 +224,24 @@ footer .container {
     padding-right: 0.3rem;
 }
 
+#msgSenha {
+    display: none;
+}
 
+#msgCaracteres {
+    display: none;
+}
+
+#msgSenhasIguais {
+    display: none;
+}
+
+.valid {
+    color: #ed4956;
+    font-size: 0.6rem;
+    margin: 10px 40px;
+    margin-top: 5px;
+}
 
 @media (max-width: 1300px) {
     .celulares {
