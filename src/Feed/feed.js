@@ -4,7 +4,8 @@ import './style.css';
 
 export default function Feed() {
 
-    const [busca, setBusca] = useState('');       
+    const [busca, setBusca] = useState(''),
+          [msgLogon] = useState(localStorage.getItem("login"));
 
     function Buscar(){
         var ul = document.querySelector('ul');
@@ -27,15 +28,16 @@ export default function Feed() {
 
     function LogOut(){
         localStorage.setItem("acesso", false);
+        localStorage.setItem("login", ""); 
         window.location.href = "/";
     }
 
     return (
         <div className="feed">
-            <h1>Cervejarias</h1>
-            
+            <h1>Cervejarias</h1>            
             <input value={busca} onChange={(ev) => setBusca(ev.target.value)} type="text" id="busca"></input>
             <button onClick={Buscar} className="button1">Buscar</button>
+            <span className="logon">{msgLogon}</span>
             <button onClick={LogOut} className="button2">Sair</button>
             <div className="wrap">
                 <ul>

@@ -35,10 +35,18 @@
 }
 
 .feed .button2{
-    margin-left: 77%;
+    margin-left: 10px;
     font: bold 12px/24px arial, helvetica, sans-aerif;	
     text-align:center;
     height:24px;	
+}
+
+.logon {
+    color: #003569;
+    font-weight: bolder;
+    font-size: 0.7rem;
+    margin-left: 800px;
+    margin-top: 5px;
 }
 
 .feed .wrap {

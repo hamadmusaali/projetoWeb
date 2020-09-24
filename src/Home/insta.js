@@ -15,8 +15,8 @@ export default function App() {
     const [login, set_login] = useState(''),
           [senha, set_senha] = useState(''),
           [msgErro, setMsgErro] = useState(''),
-          [MsgRegistro] = useState(localStorage.getItem("registro"));
-
+          [MsgRegistro] = useState(localStorage.getItem("registro")),
+          [msgLogin, setMsgLogin] = useState('');
     function Login() {
         
 
@@ -31,21 +31,18 @@ export default function App() {
                         email: login,
                         password: senha
                     },
-                    success: function (response) {
+                    success: function (response){
                         console.log(response);
-
-                        if (response.token === "QpwL5tke4Pnpja7X4") {
-                            console.log("Login Valido");
-                            localStorage.setItem("acesso", true);
-                            setMsgErro('');
-                            localStorage.setItem("registro", "");
-                            window.location.href = "/feed"
-                        } else {
-                            alert("Login Inválido");
-                            localStorage.setItem("acesso", false);
-                        }
+                        console.log("Login Valido");
+                        localStorage.setItem("acesso", true);
+                        setMsgErro('');
+                        localStorage.setItem("registro", "");
+                        localStorage.setItem("login","Login realizado com sucesso");
+                        window.location.href = "/feed"
                     }
                 });
+                setMsgLogin('Login inválido')
+                localStorage.setItem("acesso", false)
             }
             else {
                setMsgErro('Login ou Senha com menos de 3 caracteres!!');
@@ -84,6 +81,7 @@ export default function App() {
                             </Link>
                             <span className="valid">{msgErro}</span>
                             <span className="registro">{MsgRegistro}</span>
+                            <span className="valid">{msgLogin}</span>
                             <Link to="/" className="esqueceuSenha">Esqueceu a senha?</Link>
                         </form>
                         <div className="cadastrar">
