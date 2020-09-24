@@ -1,38 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 import './style.css';
 
-function Buscar(){
-    var busca = document.getElementById("busca"),
-        ul = document.querySelector('ul');
-    axios.get('https://api.openbrewerydb.org/breweries?by_name=' + busca.value)
-        .then(function(res){
-            console.log(res);
-            var docs = res.data;
-            ul.innerHTML = ""; 
-            for(var i = 0; i < docs.length && i<10; i++){
-                var li = document.createElement('li');
-                li.innerHTML = "Nome do Estabelecimento: " +docs[i].name+"<br>Endereço: "
-                                +docs[i].street+", "+docs[i].city+"<br>Site: <a href=" 
-                                + docs[i].website_url +">" +  docs[i].website_url + "</a><br><br>";
-                ul.appendChild(li);
-            }
+export default function Feed() {
 
-        });
-}
+    const [busca, setBusca] = useState('');       
 
-function LogOut(){
-    localStorage.setItem("acesso", false);
-    window.location.href = "/";
-}
+    function Buscar(){
+        var ul = document.querySelector('ul');
 
-function Feed() {
+        axios.get('https://api.openbrewerydb.org/breweries?by_name=' + busca)
+            .then(function(res){
+                console.log(res);
+                var docs = res.data;
+                ul.innerHTML = ""; 
+                for(var i = 0; i < docs.length && i<10; i++){
+                    var li = document.createElement('li');
+                    li.innerHTML = "Nome do Estabelecimento: " +docs[i].name+"<br>Endereço: "
+                                    +docs[i].street+", "+docs[i].city+"<br>Site: <a href=" 
+                                    + docs[i].website_url +">" +  docs[i].website_url + "</a><br><br>";
+                    ul.appendChild(li);
+                }
+    
+            });
+    }
+
+    function LogOut(){
+        localStorage.setItem("acesso", false);
+        window.location.href = "/";
+    }
 
     return (
         <div className="feed">
             <h1>Cervejarias</h1>
             
-            <input type="text" id="busca"></input>
+            <input value={busca} onChange={(ev) => setBusca(ev.target.value)} type="text" id="busca"></input>
             <button onClick={Buscar} className="button1">Buscar</button>
             <button onClick={LogOut} className="button2">Sair</button>
             <div className="wrap">
@@ -42,5 +44,3 @@ function Feed() {
         </div>
     );
 }
-
-export default Feed;

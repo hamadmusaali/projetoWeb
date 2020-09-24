@@ -224,18 +224,6 @@ footer .container {
     padding-right: 0.3rem;
 }
 
-#msgSenha {
-    display: none;
-}
-
-#msgCaracteres {
-    display: none;
-}
-
-#msgSenhasIguais {
-    display: none;
-}
-
 .valid {
     color: #ed4956;
     font-size: 0.6rem;

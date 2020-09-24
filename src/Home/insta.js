@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './style.css';
 import $ from "jquery";
 import escrita from '../imagens/escrita.png';
@@ -8,57 +8,56 @@ import android from '../imagens/googleplay.png';
 
 import { Link } from 'react-router-dom';
 
-function Login() {
-    var login = document.getElementById('login'),
-        senha = document.getElementById('senha'),
-        msgSenha = document.getElementById('msgSenha'),
-        msgCaracteres = document.getElementById('msgCaracteres');
+export default function App() {
 
-    if (login.value != '' && senha.value != '') {
+    const [login, set_login] = useState(''),
+          [senha, set_senha] = useState(''),
+          [msgErro, setMsgErro] = useState('');;
 
-        if (login.value.length >= 3 && senha.value.length >= 3) {
+    function Login() {
+        
 
-            $.ajax({
-                url: "https://reqres.in/api/login",
-                type: "POST",
-                data: {
-                    email: login.value,
-                    password: senha.value
-                },
-                success: function (response) {
-                    console.log(response);
+        if (login != '' && senha != '') {
 
-                    if (response.token === "QpwL5tke4Pnpja7X4") {
-                        console.log("Login Valido");
-                        localStorage.setItem("acesso", true);
-                        window.location.href = "/feed";
-                    } else {
-                        alert("Login Inválido");
-                        localStorage.setItem("acesso", false);
+            if (login.length >= 3 && senha.length >= 3) {
+
+                $.ajax({
+                    url: "https://reqres.in/api/login",
+                    type: "POST",
+                    data: {
+                        email: login,
+                        password: senha
+                    },
+                    success: function (response) {
+                        console.log(response);
+
+                        if (response.token === "QpwL5tke4Pnpja7X4") {
+                            console.log("Login Valido");
+                            localStorage.setItem("acesso", true);
+                            setMsgErro('');
+                            window.location.href = "/feed"
+                        } else {
+                            alert("Login Inválido");
+                            localStorage.setItem("acesso", false);
+                        }
                     }
-                }
-            });
+                });
+            }
+            else {
+               setMsgErro('Login ou Senha com menos de 3 caracteres!!');
+            }
+
         }
         else {
-            msgSenha.style.display = "none";
-            msgCaracteres.style.display = "block";
+            setMsgErro('Login ou Senha vazia!!');
         }
 
-
-    }
-    else {
-        msgSenha.style.display = "block";
-        msgCaracteres.style.display = "none";
     }
 
-}
-
-function App() {
 
     return (
         <div>
             <title>Página de login</title>
-
 
             <div id="wrapper">
                 <div id="insta" className="container">
@@ -69,8 +68,8 @@ function App() {
                             <div className="logo">
                                 <img src={escrita} alt="instagram" />
                             </div>
-                            <input id="login" type="text" className="input" placeholder="Telefone, nome de usuário ou email" required />
-                            <input id="senha" type="password" className="input" placeholder="Senha" required />
+                            <input type="text" value={login} onChange={(ev) => set_login(ev.target.value)} className="input" placeholder="Telefone, nome de usuário ou email" required />
+                            <input type="password" value={senha} onChange={(ev) => set_senha(ev.target.value)} className="input" placeholder="Senha" required />
                             <button className="botao" onClick={Login}>Entrar</button>
                             <span className="separar">OU</span>
                             <Link to="/" className="facebook">
@@ -80,12 +79,7 @@ function App() {
                                     </p>
                                 </div>
                             </Link>
-                            <div id="msgCaracteres">
-                                <p className="valid">Login ou Senha com menos de 3 caracteres!!</p>
-                            </div>
-                            <div id="msgSenha">
-                                <p className="valid">Login ou Senha vazia!!</p>
-                            </div>
+                            <span className="valid">{msgErro}</span>
                             <Link to="/" className="esqueceuSenha">Esqueceu a senha?</Link>
                         </form>
                         <div className="cadastrar">
@@ -149,4 +143,3 @@ function App() {
         </div>
     );
 }
-export default App;

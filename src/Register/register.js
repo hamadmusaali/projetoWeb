@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Home/style.css';
 import $ from "jquery";
 import escrita from '../imagens/escrita.png';
@@ -7,56 +7,51 @@ import android from '../imagens/googleplay.png';
 
 import { Link } from 'react-router-dom';
 
-function Cadastrar() {
-    var nome = document.getElementById('nome_cad'),
-        senha = document.getElementById('senha_cad'),
-        senha1 = document.getElementById('senha1_cad'),
-        msgSenha = document.getElementById('msgSenha'),
-        msgCaracteres = document.getElementById('msgCaracteres'),
-        msgSenhasIguais = document.getElementById('msgSenhasIguais');
 
-    if (nome.value != '' && senha.value != '' && senha1.value != '') {
+export default function Reg() {
 
-        if (nome.value.length >= 3 && senha.value.length >= 3 && senha1.value.length) {
+    const [nome, set_nome] = useState(''),
+          [senha, set_senha] = useState(''),
+          [senha2, set_senha2] = useState(''),
+          [msgErro, setMsgErro] = useState('');
 
-            if (senha.value === senha1.value) {
+    function Cadastrar() {
 
-                var auxRegistro = {
-                    email: nome.value,
-                    password: senha.value
-                }
+        if (nome != '' && senha != '' && senha2 != '') {
 
-                $.ajax({
-                    url: "https://reqres.in/api/register",
-                    type: "POST",
-                    data: auxRegistro,
-                    success: function (response) {
-                        console.log(response);
-                        window.location.href = "/"
+            if (nome.length >= 3 && senha.length >= 3 && senha2.length) {
+
+                if (senha === senha2) {
+
+                    var auxRegistro = {
+                        email: nome,
+                        password: senha
                     }
-                });
+
+                    $.ajax({
+                        url: "https://reqres.in/api/register",
+                        type: "POST",
+                        data: auxRegistro,
+                        success: function (response) {
+                            console.log(response);
+                            setMsgErro('');
+                            window.location.href = "/"
+                        }
+                    });
+                }
+                else {
+                    setMsgErro('As senhas não são iguais!!');
+                }
             }
             else {
-                msgSenha.style.display = "none";
-                msgCaracteres.style.display = "none";
-                msgSenhasIguais.style.display = "block";
+                setMsgErro('Login ou Senha com menos de 3 caracteres!!');
             }
         }
         else {
-            msgSenha.style.display = "none";
-            msgCaracteres.style.display = "block";
-            msgSenhasIguais.style.display = "none";
+            setMsgErro('Login ou Senha vazia!!');
         }
-    }
-    else {
-        msgSenha.style.display = "block";
-        msgCaracteres.style.display = "none";
-        msgSenhasIguais.style.display = "none";
-    }
 
-}
-
-function Reg() {
+    }
 
     return (
 
@@ -67,19 +62,11 @@ function Reg() {
                         <div className="logo">
                             <img src={escrita} alt="instagram" />
                         </div>
-                        <input id="nome_cad" className="input" type="text" placeholder="Email" required></input>
-                        <input id="senha_cad" className="input" type="password" placeholder="Senha" required></input>
-                        <input id="senha1_cad" className="input" type="password" placeholder="Confirma senha" required></input>
+                        <input value={nome} className="input" type="text" onChange={(ev) => set_nome(ev.target.value)} placeholder="Email" required></input>
+                        <input value={senha} className="input" type="password" onChange={(ev) => set_senha(ev.target.value)} placeholder="Senha" required></input>
+                        <input value={senha2} className="input" type="password" onChange={(ev) => set_senha2(ev.target.value)} placeholder="Confirma senha" required></input>
                         <button id="btn" className="botao" onClick={Cadastrar}>Cadastrar</button>
-                        <div id="msgCaracteres">
-                            <p className="valid">Login ou Senha com menos de 3 caracteres!!</p>
-                        </div>
-                        <div id="msgSenha">
-                            <p className="valid">Login ou Senha vazia!!</p>
-                        </div>
-                        <div id="msgSenhasIguais">
-                            <p className="valid">As senhas não são iguais!!</p>
-                        </div>
+                        <span className="valid">{msgErro}</span>
                     </form>
                     <div className="cadastrar">
                         Já tem uma conta? <Link to="/" >Conecte-se</Link>
@@ -141,4 +128,3 @@ function Reg() {
         </div>
     );
 }
-export default Reg;
