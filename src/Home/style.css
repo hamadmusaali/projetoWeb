@@ -231,6 +231,14 @@ footer .container {
     margin-top: 5px;
 }
 
+.registro {
+    color: #003569;
+    font-weight: bolder;
+    font-size: 0.7rem;
+    margin: 10px 40px;
+    margin-top: 5px;
+}
+
 @media (max-width: 1300px) {
     .celulares {
         display: none;

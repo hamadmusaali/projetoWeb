@@ -17,7 +17,7 @@ export default function Reg() {
 
     function Cadastrar() {
 
-        if (nome != '' && senha != '' && senha2 != '') {
+        if (nome !== '' && senha !== '' && senha2 !== '') {
 
             if (nome.length >= 3 && senha.length >= 3 && senha2.length) {
 
@@ -35,20 +35,22 @@ export default function Reg() {
                         success: function (response) {
                             console.log(response);
                             setMsgErro('');
+                            localStorage.setItem("registro", "Cadastrado com sucesso");
                             window.location.href = "/"
                         }
                     });
+                    localStorage.setItem("registro", "");
                 }
                 else {
                     setMsgErro('As senhas não são iguais!!');
                 }
             }
             else {
-                setMsgErro('Login ou Senha com menos de 3 caracteres!!');
+                setMsgErro('Login ou Senha com menos de 3 caracteres!!');       
             }
         }
         else {
-            setMsgErro('Login ou Senha vazia!!');
+            setMsgErro('Login ou Senha vazia!!');        
         }
 
     }

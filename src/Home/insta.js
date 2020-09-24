@@ -10,14 +10,17 @@ import { Link } from 'react-router-dom';
 
 export default function App() {
 
+    
+
     const [login, set_login] = useState(''),
           [senha, set_senha] = useState(''),
-          [msgErro, setMsgErro] = useState('');;
+          [msgErro, setMsgErro] = useState(''),
+          [MsgRegistro] = useState(localStorage.getItem("registro"));
 
     function Login() {
         
 
-        if (login != '' && senha != '') {
+        if (login !== '' && senha !== '') {
 
             if (login.length >= 3 && senha.length >= 3) {
 
@@ -35,6 +38,7 @@ export default function App() {
                             console.log("Login Valido");
                             localStorage.setItem("acesso", true);
                             setMsgErro('');
+                            localStorage.setItem("registro", "");
                             window.location.href = "/feed"
                         } else {
                             alert("Login Inválido");
@@ -53,7 +57,6 @@ export default function App() {
         }
 
     }
-
 
     return (
         <div>
@@ -80,6 +83,7 @@ export default function App() {
                                 </div>
                             </Link>
                             <span className="valid">{msgErro}</span>
+                            <span className="registro">{MsgRegistro}</span>
                             <Link to="/" className="esqueceuSenha">Esqueceu a senha?</Link>
                         </form>
                         <div className="cadastrar">
