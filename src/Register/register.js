@@ -13,7 +13,8 @@ export default function Reg() {
     const [nome, set_nome] = useState(''),
           [senha, set_senha] = useState(''),
           [senha2, set_senha2] = useState(''),
-          [msgErro, setMsgErro] = useState('');
+          [msgErro, setMsgErro] = useState(''),
+          [msgCadastroErro, setMsgCadastroErro] = useState('');
 
     function Cadastrar() {
 
@@ -39,18 +40,23 @@ export default function Reg() {
                             window.location.href = "/"
                         }
                     });
+                    setMsgCadastroErro('Cadastro inválido');
+                    setMsgErro('');
                     localStorage.setItem("registro", "");
                 }
                 else {
                     setMsgErro('As senhas não são iguais!!');
+                    setMsgCadastroErro('');
                 }
             }
             else {
-                setMsgErro('Login ou Senha com menos de 3 caracteres!!');       
+                setMsgErro('Login ou Senha com menos de 3 caracteres!!');  
+                setMsgCadastroErro('');     
             }
         }
         else {
-            setMsgErro('Login ou Senha vazia!!');        
+            setMsgErro('Login ou Senha vazia!!');  
+            setMsgCadastroErro('');      
         }
 
     }
@@ -69,6 +75,7 @@ export default function Reg() {
                         <input value={senha2} className="input" type="password" onChange={(ev) => set_senha2(ev.target.value)} placeholder="Confirma senha" required></input>
                         <button id="btn" className="botao" onClick={Cadastrar}>Cadastrar</button>
                         <span className="valid">{msgErro}</span>
+                        <span className="valid">{msgCadastroErro}</span>
                     </form>
                     <div className="cadastrar">
                         Já tem uma conta? <Link to="/" >Conecte-se</Link>

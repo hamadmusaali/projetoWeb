@@ -10,13 +10,12 @@ import { Link } from 'react-router-dom';
 
 export default function App() {
 
-    
-
     const [login, set_login] = useState(''),
           [senha, set_senha] = useState(''),
           [msgErro, setMsgErro] = useState(''),
           [MsgRegistro] = useState(localStorage.getItem("registro")),
           [msgLogin, setMsgLogin] = useState('');
+
     function Login() {
         
 
@@ -42,15 +41,18 @@ export default function App() {
                     }
                 });
                 setMsgLogin('Login inválido')
+                setMsgErro('')
                 localStorage.setItem("acesso", false)
             }
             else {
                setMsgErro('Login ou Senha com menos de 3 caracteres!!');
+               setMsgLogin('');
             }
 
         }
         else {
             setMsgErro('Login ou Senha vazia!!');
+            setMsgLogin('');
         }
 
     }
