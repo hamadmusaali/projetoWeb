@@ -1,46 +1,46 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import './style.css';
 
 export default function Feed() {
 
     const [busca, setBusca] = useState(''),
-          [msgLogon] = useState(localStorage.getItem("login"));
+        [msgLogon] = useState(localStorage.getItem("login")),
+        [cervejas, setCervejas] = useState([]);
 
-    function Buscar(){
-        var ul = document.querySelector('ul');
+    function Buscar() {
 
         axios.get('https://api.openbrewerydb.org/breweries?by_name=' + busca)
-            .then(function(res){
-                console.log(res);
-                var docs = res.data;
-                ul.innerHTML = ""; 
-                for(var i = 0; i < docs.length && i<10; i++){
-                    var li = document.createElement('li');
-                    li.innerHTML = "Nome do Estabelecimento: " +docs[i].name+"<br>Endereço: "
-                                    +docs[i].street+", "+docs[i].city+"<br>Site: <a href=" 
-                                    + docs[i].website_url +">" +  docs[i].website_url + "</a><br><br>";
-                    ul.appendChild(li);
-                }
-    
+            .then(function (res) {
+                setCervejas([]);
+                setCervejas(res.data);
             });
     }
 
-    function LogOut(){
+    function LogOut() {
         localStorage.setItem("acesso", false);
-        localStorage.setItem("login", ""); 
+        localStorage.setItem("login", "");
         window.location.href = "/";
     }
 
     return (
         <div className="feed">
-            <h1>Cervejarias</h1>            
+            <h1>Cervejarias</h1>
             <input value={busca} onChange={(ev) => setBusca(ev.target.value)} type="text" id="busca"></input>
             <button onClick={Buscar} className="button1">Buscar</button>
             <span className="logon">{msgLogon}</span>
             <button onClick={LogOut} className="button2">Sair</button>
             <div className="wrap">
                 <ul>
+                    {cervejas.map(cerveja => (
+                        <li key={cerveja.id}>
+                            <p>Nome do Estabelecimento: {cerveja.name}</p>
+                            <p>Endereço: {cerveja.street}</p>
+                            <p>Cidade: {cerveja.city}</p>
+                            <p>Site: <a href={cerveja.website_url}>{cerveja.website_url}</a></p>
+                        </li>
+                    ))}
+
                 </ul>
             </div>
         </div>
