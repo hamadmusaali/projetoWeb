@@ -24,7 +24,7 @@ export default function App() {
             if (login.length >= 3 && senha.length >= 3) {
 
                 $.ajax({
-                    url: "https://reqres.in/api/login",
+                    url: "http://localhost:4000/auth/authenticate",
                     type: "POST",
                     data: {
                         email: login,

@@ -30,19 +30,17 @@ export default function Reg() {
                     }
 
                     $.ajax({
-                        url: "https://reqres.in/api/register",
+                        url: "http://localhost:4000/auth/register",
                         type: "POST",
                         data: auxRegistro,
                         success: function (response) {
                             console.log(response);
                             setMsgErro('');
-                            localStorage.setItem("registro", "Cadastrado com sucesso");
                             window.location.href = "/"
                         }
                     });
                     setMsgCadastroErro('Cadastro inválido');
                     setMsgErro('');
-                    localStorage.setItem("registro", "");
                 }
                 else {
                     setMsgErro('As senhas não são iguais!!');
