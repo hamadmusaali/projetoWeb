@@ -17,29 +17,35 @@ export default function Feed() {
         }
         setTexto('');
         console.log(texto);
+        const token = localStorage.getItem("token");
         $.ajax({
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             url: "http://localhost:4000/projects",
             type: "POST",
             data: auxPost,
             success: function (response) {
-                console.log(response);
+                //console.log(response);
             }
         });
     }
 
     function Buscar() {
-        console.log(cervejas);
-        axios.get('http://localhost:4000/projects' + busca)
+        const token = localStorage.getItem("token");
+        const b = {"text": busca};
+        setCervejas([]);
+        axios.get('http://localhost:4000/projects', {headers: {Authorization: `Bearer ${token}`}})
             .then(function (res) {
-                setCervejas([]);
-                setCervejas(res.data);
-                console.log(cervejas);
+                //console.log(res.data);
+                setCervejas(res.data.busca);
             });
-        
+        console.log(cervejas);
     }
 
     function LogOut() {
         localStorage.setItem("acesso", false);
+        localStorage.setItem("token", "");
         localStorage.setItem("login", "");
         window.location.href = "/";
     }
@@ -56,11 +62,10 @@ export default function Feed() {
             <div className="wrap">
                 <ul>
                     {cervejas.map(cerveja => (
-                        <li key={cerveja.id}>
-                            <p>Nome do Estabelecimento: {cerveja.text}</p>
+                        <li key={cerveja._id}>
+                            <p>Post: {cerveja.text}</p>
                         </li>
                     ))}
-
                 </ul>
             </div>
         </div>
