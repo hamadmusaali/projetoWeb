@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import $ from "jquery";
 import axios from "axios";
+import { useForm } from 'react-hook-form'
 import './style.css';
 
 export default function Feed() {
@@ -9,6 +10,8 @@ export default function Feed() {
         [msgLogon] = useState(localStorage.getItem("login")),
         [cervejas, setCervejas] = useState([]),
         [texto, setTexto] = useState('');
+
+    const { register, handleSubmit } = useForm();
 
     function Postar() {
 
@@ -32,15 +35,37 @@ export default function Feed() {
     }
 
     function Buscar() {
+        
         const token = localStorage.getItem("token");
-        const b = {"text": busca};
+        var aux = busca;
         setCervejas([]);
-        axios.get('http://localhost:4000/projects', {headers: {Authorization: `Bearer ${token}`}})
+        if (aux === '') 
+            aux = "*";
+
+        axios.get('http://localhost:4000/projects/' + aux, {headers: {Authorization: `Bearer ${token}`}})
             .then(function (res) {
                 //console.log(res.data);
                 setCervejas(res.data.busca);
             });
         console.log(cervejas);
+    }
+
+    const Upload = async (data) => {
+
+        const formData = new FormData();
+        formData.append("imagem", data.imagem[0]);
+
+        const token = localStorage.getItem("token");
+        
+        const res = await fetch("http://localhost:4000/projects/imagens", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            method: "POST",
+            body: formData
+        }).then(res => res.json())
+        alert(JSON.stringify(res))
+
     }
 
     function LogOut() {
@@ -57,6 +82,10 @@ export default function Feed() {
             <button id="btn" className="botao" onClick={Postar}>Postar</button>
             <input value={busca} onChange={(ev) => setBusca(ev.target.value)} type="text" id="busca"></input>
             <button onClick={Buscar} className="button1">Buscar</button>
+            <form onSubmit={handleSubmit(Upload)}>
+                <input  ref={register} type="file" name="imagem" />
+                <button>Upload</button>
+            </form>
             <span className="logon">{msgLogon}</span>
             <button onClick={LogOut} className="button2">Sair</button>
             <div className="wrap">
