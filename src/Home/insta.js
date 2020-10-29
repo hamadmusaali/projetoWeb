@@ -35,6 +35,7 @@ export default function App() {
                         console.log("Login Valido");
                         localStorage.setItem("acesso", true);
                         localStorage.setItem("token", response.token);
+                        localStorage.setItem("logon", response.user.email);
                         setMsgErro('');
                         localStorage.setItem("registro", "");
                         localStorage.setItem("login","Login realizado com sucesso");

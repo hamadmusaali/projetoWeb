@@ -9,6 +9,7 @@ export default function Feed() {
     const [busca, setBusca] = useState(''),
         [msgLogon] = useState(localStorage.getItem("login")),
         [cervejas, setCervejas] = useState([]),
+        [imgs, setImgs] = useState([]),
         [texto, setTexto] = useState('');
 
     const { register, handleSubmit } = useForm();
@@ -29,7 +30,7 @@ export default function Feed() {
             type: "POST",
             data: auxPost,
             success: function (response) {
-                //console.log(response);
+                console.log(response);
             }
         });
     }
@@ -44,34 +45,39 @@ export default function Feed() {
 
         axios.get('http://localhost:4000/projects/' + aux, {headers: {Authorization: `Bearer ${token}`}})
             .then(function (res) {
-                //console.log(res.data);
                 setCervejas(res.data.busca);
             });
         console.log(cervejas);
     }
 
     const Upload = async (data) => {
+        if(localStorage.getItem("logon") === "admin@admin.com"){
+            const formData = new FormData();
+            formData.append("imagem", data.imagem[0]);
 
-        const formData = new FormData();
-        formData.append("imagem", data.imagem[0]);
-
-        const token = localStorage.getItem("token");
-        
-        const res = await fetch("http://localhost:4000/projects/imagens", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            method: "POST",
-            body: formData
-        }).then(res => res.json())
-        alert(JSON.stringify(res))
-
+            const token = localStorage.getItem("token");
+            
+            const res = await fetch("http://localhost:4000/projects/imagens", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                method: "POST",
+                body: formData
+            }).then(res => res.json())
+            console.log(JSON.stringify(res))
+            console.log(res.message);
+            if(res.flag)
+                setImgs("http://localhost:4000/imagens/"+res.message);
+        }else{
+            alert("Você não tem permissão")
+        }
     }
 
     function LogOut() {
         localStorage.setItem("acesso", false);
         localStorage.setItem("token", "");
         localStorage.setItem("login", "");
+        localStorage.setItem("logon", "");
         window.location.href = "/";
     }
 
@@ -95,6 +101,11 @@ export default function Feed() {
                             <p>Post: {cerveja.text}</p>
                         </li>
                     ))}
+                </ul>
+                <ul>
+                    <li>
+                        <img src={imgs}></img>
+                    </li>
                 </ul>
             </div>
         </div>
