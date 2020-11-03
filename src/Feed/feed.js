@@ -8,7 +8,7 @@ export default function Feed() {
 
     const [busca, setBusca] = useState(''),
         [msgLogon] = useState(localStorage.getItem("login")),
-        [cervejas, setCervejas] = useState([]),
+        [conteudo, setConteudo] = useState([]),
         [imgs, setImgs] = useState([]),
         [texto, setTexto] = useState('');
 
@@ -39,15 +39,15 @@ export default function Feed() {
         
         const token = localStorage.getItem("token");
         var aux = busca;
-        setCervejas([]);
+        setConteudo([]);
         if (aux === '') 
             aux = "*";
 
         axios.get('http://localhost:4000/projects/' + aux, {headers: {Authorization: `Bearer ${token}`}})
             .then(function (res) {
-                setCervejas(res.data.busca);
+                setConteudo(res.data.busca);
             });
-        console.log(cervejas);
+        console.log(conteudo);
     }
 
     const Upload = async (data) => {
@@ -65,8 +65,8 @@ export default function Feed() {
                 body: formData
             }).then(res => res.json())
             console.log(JSON.stringify(res))
-            console.log(res.message);
-            if(res.flag)
+            console.log(res);
+            if(res.status)
                 setImgs("http://localhost:4000/imagens/"+res.message);
         }else{
             alert("Você não tem permissão")
@@ -96,16 +96,16 @@ export default function Feed() {
             <button onClick={LogOut} className="button2">Sair</button>
             <div className="wrap">
                 <ul>
-                    {cervejas.map(cerveja => (
-                        <li key={cerveja._id}>
-                            <p>Post: {cerveja.text}</p>
+                    {conteudo.map(post => (
+                        <li key={post._id}>
+                            <p>Post: {post.text}</p>
                         </li>
                     ))}
                 </ul>
                 <ul>
                     <li>
-                        <img src={imgs}></img>
-                    </li>
+                        <img src={imgs}/>
+                    </li>                    
                 </ul>
             </div>
         </div>
