@@ -30,7 +30,7 @@ export default function Reg() {
                     }
 
                     $.ajax({
-                        url: "http://localhost:4000/auth/register",
+                        url: process.env.RECT_APP_API_URL + "/auth/register",
                         type: "POST",
                         data: auxRegistro,
                         success: function (response) {
